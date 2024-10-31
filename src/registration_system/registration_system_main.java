@@ -33,7 +33,7 @@ public class registration_system_main {
 
         }
 
-        System.out.println("Exiting the system.");
+        System.out.println("Exiting the system...");
         reader.close();
     }
 }
