@@ -109,7 +109,7 @@ public class Student { //class of all the students together (like a classroom)
             //print out students and their attendance status
             //abuse parallel arrays
             for (int i = 0; i < namesList.size(); i++){
-                System.out.println("Grade: " + gradesList.get(i) + "\tName: " + namesList.get(i) + "\t" + attendanceList.get(i));
+                System.out.println("Grade: " + gradesList.get(i) + "\tName: " + namesList.get(i) + "\tStatus: " + attendanceList.get(i));
             }
             System.out.println();
         }
