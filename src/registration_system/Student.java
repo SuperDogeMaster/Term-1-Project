@@ -6,12 +6,13 @@ import java.util.Scanner;
 
 //arraylist is basically a list but able to add onto
 
-public class Student {
+public class Student { //class of all the students together (like a classroom)
     
 	// create parallel lists, along with schedules list.
     private List<String> namesList = new ArrayList<>();
 	private List<Integer> gradesList = new ArrayList<>();
-	private List<String[][]> schedulesList = new ArrayList<>();
+	private List<String[][]> schedulesList = new ArrayList<>(); //list of schedules (which are 4x4 matrices)
+    private List<String> attendanceList = new ArrayList<>();
 
     public void newStudent(Scanner reader) {
         System.out.print("Please enter the student's name: ");
@@ -27,11 +28,14 @@ public class Student {
 		String[][] newSchedule = new String[4][4];
 		schedulesList.add(newSchedule);
 
+        //assume by default that the student is absent
+        attendanceList.add("ABSENT");
+
     }
 
 	public void editStudent(Scanner reader){
 		String studentChoice;
-		int studentID = 0;
+		int studentID = 0; //index number
 		System.out.println("Which Student would you like to edit?");
 		studentChoice = reader.nextLine();
 		// search and get the array id for the student
@@ -45,10 +49,12 @@ public class Student {
 		boolean end = false;
 		int choice;
 		while (!end) {
-			System.out.println("1) View Schedule\n2) Edit Schedule\n3) Quit");
+			System.out.println("1) View Schedule\n2) Edit Schedule\n3) Take Attendance\n0) Quit");
 			choice = reader.nextInt();
 			
 			switch(choice) { // choice
+
+                //view schedule
 				case 1:
 					String[][] schedule = schedulesList.get(studentID);
 					for (int i = 0; i < 4; i++) {
@@ -58,10 +64,29 @@ public class Student {
 						System.out.println();
 					}
 					break;
+
+                //edit schedule
 				case 2:
 					System.out.println("not implemented yet");
 					break;
-				case 3:
+
+                //take attendance for selected student (studentID is the index)
+                case 3:
+                    int status;
+                    System.out.println("Was the student here today? Enter 0 for ABSENT, 1 for PRESENT, 2 for TARDY");
+                    status = reader.nextInt();
+                    String STATUS_STRING;
+                    STATUS_STRING = switch (status) {
+                        case 0 -> "ABSENT";
+                        case 1 -> "PRESENT";
+                        default -> "TARDY";
+                    };
+                    attendanceList.set(studentID,STATUS_STRING);
+
+                    break;
+
+		default:
+                    System.out.println("Quitting editing mode");
 					return;
 			}
 		}
@@ -80,8 +105,11 @@ public class Student {
             System.out.println("No students registered yet.");
         } else {
             System.out.println("\nRegistered students:");
-            for (String studentName : namesList) {
-                System.out.println(studentName);
+
+            //print out students and their attendance status
+            //abuse parallel arrays
+            for (int i = 0; i < namesList.size(); i++){
+                System.out.println("Grade: " + gradesList.get(i) + "\tName: " + namesList.get(i) + "\t" + attendanceList.get(i));
             }
             System.out.println();
         }
