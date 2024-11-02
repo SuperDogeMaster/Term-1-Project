@@ -12,6 +12,7 @@ public class Student { //class of all the students together (like a classroom)
     private List<String> namesList = new ArrayList<>();
 	private List<Integer> gradesList = new ArrayList<>();
 	private List<String[][]> schedulesList = new ArrayList<>(); //list of schedules (which are 4x4 matrices)
+	private List<String[][]> classGradesList = new ArrayList<>();
     private List<String> attendanceList = new ArrayList<>();
 
     public void newStudent(Scanner reader) {
@@ -27,6 +28,10 @@ public class Student { //class of all the students together (like a classroom)
 		// add a blank schedule to the schedules list
 		String[][] newSchedule = new String[4][4];
 		schedulesList.add(newSchedule);
+		
+		// add blank grades as well
+		String[][] newGrades = new String[4][4];
+		classGradesList.add(newGrades);
 
         //assume by default that the student is absent
         attendanceList.add("ABSENT");
@@ -35,7 +40,7 @@ public class Student { //class of all the students together (like a classroom)
 
 	public void editStudent(Scanner reader){
 		String studentChoice;
-		int studentID = -1; //index number
+		int studentID = -1; //index number, set to -1 as a default
 		boolean searchEnd = false;
 
 		// search and get the array id for the student
@@ -55,7 +60,6 @@ public class Student { //class of all the students together (like a classroom)
 		else {
 			System.out.println("No students registered yet.");
 		}
-		//
 		boolean end = false;
 
 		if (studentID == -1) {
@@ -64,9 +68,10 @@ public class Student { //class of all the students together (like a classroom)
 
 		int choice;
 		while (!end) {
-			System.out.println("1) View Schedule\n2) Edit Schedule\n3) Take Attendance\n4) Remove Student\n0) Quit");
+			System.out.println("1) View Schedule\n2) Edit Schedule\n3) Take Attendance\n4) View Grades\n5) Edit Grades\n0) Quit");
 			choice = reader.nextInt();
 			String[][] schedule = schedulesList.get(studentID);
+			String[][] gradesList = classGradesList.get(studentID);
 			switch(choice) { // choice
 
                 //view schedule
@@ -113,6 +118,34 @@ public class Student { //class of all the students together (like a classroom)
                     attendanceList.set(studentID,STATUS_STRING);
 
                     break;
+               
+               case 4:
+					for (int i = 0; i < 4; i++) {
+						for (int x = 0; x < 4; x++) {
+							System.out.print(gradesList[i][x]);
+							if(gradesList[i][x] == null || gradesList[i][x].isEmpty())
+								System.out.print("          ");
+							else{
+								int spaces = gradesList[i][x].length();
+								for (int s = 0; s < 14 - spaces; s++)
+									System.out.print(" ");
+							}
+						}
+						System.out.println();
+					}
+					break;
+                case 5:
+					System.out.print("Enter the term for the class (1-4): ");
+					int gradeTerm = reader.nextInt();
+					System.out.print("Enter the period for the class (1-4): ");
+					int gradePeriod = reader.nextInt();
+					reader.nextLine();
+					System.out.print("Enter the grade they should recieve: ");
+					String grade = reader.nextLine();
+					gradesList[gradePeriod-1][gradeTerm-1] = grade;
+					System.out.println();
+					break;
+
 		default:
                     System.out.println("Quitting editing mode");
 					return;
@@ -143,6 +176,7 @@ public class Student { //class of all the students together (like a classroom)
         }
     }
 
+    // Removes a student from the list, along with their stored data.
 	public void removeStudent(Scanner reader){
 		String studentChoice;
 		int studentID = -1;
