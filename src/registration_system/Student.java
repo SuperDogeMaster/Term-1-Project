@@ -35,21 +35,36 @@ public class Student { //class of all the students together (like a classroom)
 
 	public void editStudent(Scanner reader){
 		String studentChoice;
-		int studentID = 0; //index number
-		System.out.println("Which Student would you like to edit?");
-		studentChoice = reader.nextLine();
+		int studentID = -1; //index number
+		boolean searchEnd = false;
+
 		// search and get the array id for the student
-		for (int i = 0; i < namesList.size(); i++) {
-			if (namesList.get(i) == studentChoice) {
-				studentID = i;
+		if (!namesList.isEmpty()) {
+			System.out.println("Which Student would you like to edit?");
+			studentChoice = reader.nextLine();
+			for (int i = 0; i < namesList.size(); i++) {
+				if (namesList.get(i).equals(studentChoice)) {
+					studentID = i;
+					searchEnd = true;
+				}
+			}
+			if (studentID == -1) {
+				System.out.println("Student not found.");
 			}
 		}
-		
+		else {
+			System.out.println("No students registered yet.");
+		}
 		//
 		boolean end = false;
+
+		if (studentID == -1) {
+			end = true;
+		}
+
 		int choice;
 		while (!end) {
-			System.out.println("1) View Schedule\n2) Edit Schedule\n3) Take Attendance\n0) Quit");
+			System.out.println("1) View Schedule\n2) Edit Schedule\n3) Take Attendance\n4) Remove Student\n0) Quit");
 			choice = reader.nextInt();
 			String[][] schedule = schedulesList.get(studentID);
 			switch(choice) { // choice
@@ -87,18 +102,17 @@ public class Student { //class of all the students together (like a classroom)
                 //take attendance for selected student (studentID is the index)
                 case 3:
                     int status;
-                    System.out.println("Was the student here today? Enter 0 for ABSENT, 1 for PRESENT, 2 for TARDY");
+                    System.out.println("Was the student here today? \n1) Absent\n2) Present\n3) Tardy");
                     status = reader.nextInt();
                     String STATUS_STRING;
                     STATUS_STRING = switch (status) {
-                        case 0 -> "ABSENT";
-                        case 1 -> "PRESENT";
+                        case 1 -> "ABSENT";
+                        case 2 -> "PRESENT";
                         default -> "TARDY";
                     };
                     attendanceList.set(studentID,STATUS_STRING);
 
                     break;
-
 		default:
                     System.out.println("Quitting editing mode");
 					return;
@@ -128,4 +142,26 @@ public class Student { //class of all the students together (like a classroom)
             System.out.println();
         }
     }
+
+	public void removeStudent(Scanner reader){
+		String studentChoice;
+		int studentID = -1;
+		System.out.print("Enter the student you'd like to remove: ");
+		studentChoice = reader.nextLine();
+	
+		for (int i = 0; i < namesList.size(); i++) {
+			if (namesList.get(i).equals(studentChoice)) {
+				studentID = i;
+				namesList.remove(studentID);
+				gradesList.remove(studentID);
+				attendanceList.remove(studentID);
+				schedulesList.remove(studentID);
+			}
+		}
+		
+		if (studentID == -1) {
+			System.out.println("Not a registered student!");
+		}
+		
+	}
 }
