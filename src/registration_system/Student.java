@@ -51,15 +51,21 @@ public class Student { //class of all the students together (like a classroom)
 		while (!end) {
 			System.out.println("1) View Schedule\n2) Edit Schedule\n3) Take Attendance\n0) Quit");
 			choice = reader.nextInt();
-			
+			String[][] schedule = schedulesList.get(studentID);
 			switch(choice) { // choice
 
                 //view schedule
 				case 1:
-					String[][] schedule = schedulesList.get(studentID);
 					for (int i = 0; i < 4; i++) {
 						for (int x = 0; x < 4; x++) {
-							System.out.print(schedule[x][i] +  " ");
+							System.out.print(schedule[i][x]);
+							if(schedule[i][x] == null || schedule[i][x].isEmpty())
+								System.out.print("          ");
+							else{
+								int spaces = schedule[i][x].length();
+								for (int s = 0; s < 14 - spaces; s++)
+									System.out.print(" ");
+							}
 						}
 						System.out.println();
 					}
@@ -67,7 +73,15 @@ public class Student { //class of all the students together (like a classroom)
 
                 //edit schedule
 				case 2:
-					System.out.println("not implemented yet");
+					System.out.print("Enter the term for this class (1-4): ");
+					int term = reader.nextInt();
+					System.out.print("Enter the period for this class (1-4): ");
+					int period = reader.nextInt();
+					reader.nextLine();
+					System.out.print("Enter the name of a class: ");
+					String classChoice = reader.nextLine();
+					schedule[period-1][term-1] = classChoice;
+					System.out.println();
 					break;
 
                 //take attendance for selected student (studentID is the index)
