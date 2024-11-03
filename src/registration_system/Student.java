@@ -187,8 +187,8 @@ public class Student {
 
     // reset all attendance to absent
     public void resetAttendance(){
-        for (String status: this.attendanceList){
-            status = "ABSENT"; // set status to absent
+        for (int i = 0; i < attendanceList.size(); i++){
+        	attendanceList.set(i, "ABSENT"); // set status to absent
         }
         System.out.println("Attendance reset successfully."); // confirmation message
     } 
