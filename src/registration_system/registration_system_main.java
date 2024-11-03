@@ -5,33 +5,35 @@ import java.util.Scanner;
 public class registration_system_main {
 
     public static void main(String[] args) {
-        Scanner reader = new Scanner(System.in);
-        Student studentReg = new Student();
+
+        // create instances and declare variables
+        Scanner reader = new Scanner(System.in); 
+        Student studentReg = new Student(); 
         String condition = "";
         int menuChoice = 0;
 
-        while (!condition.equals("end")) {
+        while (!condition.equals("end")) { // loop until the user decides to end
             System.out.println("1) New Student \n2) View All Students \n3) Edit Student \n4) Remove Student \n5) Reset Attendances \n6) Exit");
             menuChoice = reader.nextInt();
-            reader.nextLine();
+            reader.nextLine(); 
             switch (menuChoice) { 
                 case 1:
-                    studentReg.newStudent(reader);
+                    studentReg.newStudent(reader); // call to add a new student
                     break;
                 case 2:
-                    studentReg.printAllStudents();
+                    studentReg.printAllStudents(); // call to display all students
                     break;
                 case 3:
-                    studentReg.editStudent(reader);
+                    studentReg.editStudent(reader); // call to edit a student's information
                     break;
                 case 4:
-                    studentReg.removeStudent(reader);
+                    studentReg.removeStudent(reader); // call to remove a student from the list
                     break;
                 case 5:
-                    studentReg.resetAttendance();
+                    studentReg.resetAttendance(); // call to reset attendance for all students
                     break;
                 case 6:
-                    condition = "end";
+                    condition = "end"; // set condition to end the loop
                     break;
                 default:
                     System.out.println("Invalid choice, please select again.");
