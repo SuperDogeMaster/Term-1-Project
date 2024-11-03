@@ -140,7 +140,7 @@ public class Student { //class of all the students together (like a classroom)
 					System.out.print("Enter the period for the class (1-4): ");
 					int gradePeriod = reader.nextInt();
 					reader.nextLine();
-					System.out.print("Enter the grade they should recieve: ");
+					System.out.print("Enter the grade they should recieve (as a letter): ");
 					String grade = reader.nextLine();
 					gradesList[gradePeriod-1][gradeTerm-1] = grade;
 					System.out.println();
