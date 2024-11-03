@@ -29,6 +29,7 @@ public class registration_system_main {
                     break;
                 case 5:
                     studentReg.resetAttendance();
+                    break;
                 case 6:
                     condition = "end";
                     break;
