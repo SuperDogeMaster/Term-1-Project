@@ -198,4 +198,12 @@ public class Student { //class of all the students together (like a classroom)
 		}
 		
 	}
+
+	//reset all attendance to absent on start of new day
+	public void resetAttendance(){
+		for (String status: this.attendanceList){
+			status = "ABSENT";
+		}
+		System.out.println("Attendance reset successfully.");
+	} 
 }

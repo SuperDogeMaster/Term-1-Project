@@ -11,7 +11,7 @@ public class registration_system_main {
         int menuChoice = 0;
 
         while (!condition.equals("end")) {
-            System.out.println("1) New Student \n2) View All Students \n3) Edit Student \n4) Remove Student \n5) Exit");
+            System.out.println("1) New Student \n2) View All Students \n3) Edit Student \n4) Remove Student \n5) Reset Attendances \n6) Exit");
             menuChoice = reader.nextInt();
             reader.nextLine();
             switch (menuChoice) { 
@@ -28,6 +28,8 @@ public class registration_system_main {
                     studentReg.removeStudent(reader);
                     break;
                 case 5:
+                    studentReg.resetAttendance();
+                case 6:
                     condition = "end";
                     break;
                 default:
